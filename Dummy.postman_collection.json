@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "fab5f213-2662-4d91-9227-e0c683976879",
+		"name": "Dummy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Name the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"{{em_name}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Age the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.age).to.eql(pm.environment.get(\"{{em_age}}\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var name = pm.variables.replaceIn(\"{{$randomUserName}}\");\r",
+							"pm.environment.set(\"em_name\",name);\r",
+							"pm.environment.set(\"em_age\", _.random(20,45));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{em_name}}\",\r\n    \"salary\":\"1000\",\r\n    \"age\":\"{{em_age}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/create",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response ID the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"{{em_name}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response ID the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.age).to.eql(pm.environment.get(\"{{em_age}}\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var name = pm.variables.replaceIn(\"{{$randomUserName}}\");\r",
+							"pm.environment.set(\"em_name\",name);\r",
+							"pm.environment.set(\"em_salary\", _.random(400,5000));\r",
+							"pm.environment.set(\"em_age\", _.random(20,45));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Name the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"{{em_name}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Salary the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.salary).to.eql(pm.environment.get(\"{{em_salary}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Age the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.age).to.eql(pm.environment.get(\"{{em_age}}\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{em_name}}\",\r\n    \"salary\":\"{{em_salary}}\",\r\n    \"age\":\"{{em_age}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/update/5",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Name the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"{{em_name}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Salary the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.salary).to.eql(pm.environment.get(\"{{em_salary}}\"));\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Response Age the same as in environment\", function () {\r",
+							"    pm.expect(jsonData.age).to.eql(pm.environment.get(\"{{em_age}}\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/5",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/delete/5",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/5",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
